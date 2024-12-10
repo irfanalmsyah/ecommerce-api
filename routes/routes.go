@@ -11,4 +11,8 @@ import (
 func SetupRoutes(app *fiber.App) {
 	app.Post("/register/", middlewares.Validate(&models.RegisterInput{}), handlers.Register)
 	app.Post("/login/", middlewares.Validate(&models.LoginInput{}), handlers.Login)
+
+	protected := app.Group("/", middlewares.Protect)
+	protected.Get("/categories/", handlers.GetCategories)
+	protected.Get("/products/", handlers.GetProducts)
 }
