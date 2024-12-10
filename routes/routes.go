@@ -18,4 +18,5 @@ func SetupRoutes(app *fiber.App) {
 	protected.Get("/cart/", handlers.GetCart)
 	protected.Post("/cart/", middlewares.Validate(&models.AddToCartInput{}), handlers.AddToCart)
 	protected.Delete("/cart/", middlewares.Validate(&models.RemoveFromCartInput{}), handlers.RemoveFromCart)
+	protected.Post("/checkout/", handlers.Checkout)
 }
