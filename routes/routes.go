@@ -15,4 +15,7 @@ func SetupRoutes(app *fiber.App) {
 	protected := app.Group("/", middlewares.Protect)
 	protected.Get("/categories/", handlers.GetCategories)
 	protected.Get("/products/", handlers.GetProducts)
+	protected.Get("/cart/", handlers.GetCart)
+	protected.Post("/cart/", middlewares.Validate(&models.AddToCartInput{}), handlers.AddToCart)
+	protected.Delete("/cart/", middlewares.Validate(&models.RemoveFromCartInput{}), handlers.RemoveFromCart)
 }
