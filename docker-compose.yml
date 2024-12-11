@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ecommerce
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_DSN: "host=postgres user=postgres password=postgres dbname=ecommerce"
+    ports:
+      - "3000:3000"
+    command: ["./ecommerce-api"]
+    restart: on-failure
+
+volumes:
+  db_data:
