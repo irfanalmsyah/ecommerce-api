@@ -18,7 +18,21 @@ func main() {
 	database.Connect()
 	defer database.Close()
 
-	database.DB.AutoMigrate(&models.User{}, &models.Category{}, &models.Product{}, &models.Cart{}, &models.CartItem{}, &models.Order{}, &models.OrderItem{})
+	database.DB.AutoMigrate(
+		&models.User{},
+		&models.Category{},
+		&models.Product{},
+		&models.Cart{},
+		&models.CartItem{},
+		&models.Order{},
+		&models.OrderItem{},
+	)
+
+	if database.IsTableEmpty(&models.Category{}) {
+		if err := database.SeedDatabase("seed.sql"); err != nil {
+			log.Printf("Failed to seed database: %v\n", err)
+		}
+	}
 
 	app := fiber.New()
 	routes.SetupRoutes(app)
