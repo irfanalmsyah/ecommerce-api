@@ -42,7 +42,6 @@ func AddToCart(c *fiber.Ctx) error {
 
 func GetCart(c *fiber.Ctx) error {
 	userID := c.Locals("userID").(uint)
-	println(userID)
 
 	var cart models.Cart
 	if err := database.DB.Preload("CartItems.Product").Where("user_id = ?", userID).First(&cart).Error; err != nil {
