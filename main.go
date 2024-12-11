@@ -6,15 +6,11 @@ import (
 	"github.com/irfanalmsyah/ecommerce-api/database"
 	"github.com/irfanalmsyah/ecommerce-api/models"
 	"github.com/irfanalmsyah/ecommerce-api/routes"
-	"github.com/joho/godotenv"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("No .env file found")
-	}
 	database.Connect()
 	defer database.Close()
 

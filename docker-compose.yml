@@ -11,11 +11,12 @@ services:
       - db_data:/var/lib/postgresql/data
 
   api:
-    build: .
+    image: irfanalmsyah/ecommerce-api:v2
     depends_on:
       - postgres
     environment:
       DATABASE_DSN: "host=postgres user=postgres password=postgres dbname=ecommerce"
+      JWT_SECRET: "secret"
     ports:
       - "3000:3000"
     command: ["./ecommerce-api"]

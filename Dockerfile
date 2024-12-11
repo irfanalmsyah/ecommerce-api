@@ -15,7 +15,6 @@ FROM alpine:3.18
 WORKDIR /app
 
 COPY --from=builder /app/ecommerce-api .
-COPY .env .env
 COPY seed.sql seed.sql
 
 EXPOSE 3000
